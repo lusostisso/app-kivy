@@ -1,0 +1,54 @@
+<Historico>:
+    text_input: text_input
+    MDBottomAppBar:
+        MDToolbar:
+            type: 'bottom'
+            icon: 'plus'
+            left_action_items: [["home", lambda x: root.home()], ["cloud", lambda x: root.host()]]
+            right_action_items:[["folder", lambda x: x], ["account", lambda x: root.account()]]
+            mode: 'center'
+            on_action_button:
+                root.novo()
+            
+    MDToolbar:
+        title: "Acesse os Prontuários"
+        pos_hint: {"top": 1}
+        elevation: 10
+        #md_bg_color: "#f3f4fb"
+        #specific_text_color: "#070707"
+        left_action_items: [["cloud-upload", lambda x: root.show_load()]]
+        #right_action_items: [["search", lambda x: root.show_load()]]
+
+    MDTextField: 
+        id: text_input
+        helper_text: "visualização do arquivo"
+        helper_text_mode: "persistent"
+        multiline: True
+        size_hint_x:0.8
+        size_hint_y:0.62
+        text_color_normal:"f9f9fd"
+        pos_hint: {"center_x": .5, "center_y":0.5}
+              
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            path: 'C:\puilding_App'
+
+        #botoes do gerenciador
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancelar"
+                on_release: root.cancel()
+            Button:
+                text: "Carregar"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+
+
+

@@ -1,0 +1,12 @@
+<Host>:
+    MDBoxLayout:
+        MDBottomAppBar:
+            MDToolbar:
+                type: 'bottom'
+                icon: 'plus'
+                left_action_items: [["home", lambda x: root.home()], ["cloud", lambda x: x]]
+                right_action_items:[["folder", lambda x: root.historico()], ["account", lambda x: root.account()]]
+                on_action_button: root.novo()
+                mode: 'center'
+    Label:
+        text: "Para o futuro"

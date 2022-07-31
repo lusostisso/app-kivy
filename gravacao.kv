@@ -1,0 +1,36 @@
+
+<GravacaoWindow>:
+    MDBoxLayout:
+        MDBottomAppBar:
+            MDToolbar:
+                type: 'bottom'
+                icon: 'brush'
+                left_action_items: [["home", lambda x: root.home()], ["cloud", lambda x: root.host()]]
+                right_action_items:[["folder", lambda x: root.historico()], ["account", lambda x: root.account()]]
+                icon_color: "#ffb575"
+                mode: 'center'
+
+    MDFloatLayout:
+        MDToolbar:
+            title: "Prontuario"
+            pos_hint: {"top": 1}
+            elevation: 10
+
+        MDRoundFlatButton:
+            text: "iniciar gravação"
+            font_size: 12
+            pos_hint: {"center_x": 0.5, "center_y": 0.7}
+            on_press: 
+                app.start_recording()
+        
+        MDRoundFlatButton:
+            text: "parar gravação"
+            font_size: 12
+            pos_hint: {"center_x": 0.5, "center_y":0.6}
+            on_press: 
+                app.stop() 
+                app.save("test.wav") 
+                app.wavTomp3("test.wav")
+                app.delete("test.wav")
+                app.audio_prep() 
+                

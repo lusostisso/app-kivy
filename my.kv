@@ -1,0 +1,70 @@
+
+#:include login.kv
+#:include novo.kv
+#:include historico.kv
+#:include host.kv
+<ScreenManager>:
+    id: screen_manager
+    LoginWindow:
+        name:"login_screen"
+        id: login_screen
+    MainWindow:
+        name:"main_screen"
+        id: main_screen
+    NovoprontuarioWindow:
+        name:"novo_prontuario"
+        id: novo_prontuario
+    GravacaoWindow:
+        name:"gravacao"
+        id: gravacao
+    Historico:
+        name:"historico"
+        id: historico
+    Host:
+        name:"host"
+        id:host
+
+
+<MainWindow>:
+    MDBoxLayout:
+        MDBottomAppBar:
+            MDToolbar:
+                type: 'bottom'
+                icon: 'plus'
+                left_action_items: [["home", lambda x: x], ["cloud", lambda x: root.host()]]
+                right_action_items:[["folder", lambda x: root.historico()], ["account", lambda x: root.account()]]
+                on_action_button: root.novo()
+                mode: 'center'
+
+    MDToolbar:
+        title: "Bem vindo"
+        pos_hint: {"top": 1}
+        elevation: 10
+
+    MDRoundFlatButton:
+        text: "Novo Prontuário"
+        font_size: 12
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        on_press: 
+            root.manager.current = 'novo_prontuario'
+    
+    MDRoundFlatButton:
+        text: "Histórico"
+        font_size: 12
+        pos_hint: {"center_x": 0.5, "center_y":0.5}
+
+
+
+
+       
+
+
+
+
+
+
+
+        
+
+
+    
