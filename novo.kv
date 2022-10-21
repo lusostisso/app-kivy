@@ -1,65 +1,38 @@
-
-#:include my.kv
-#:include gravacao.kv
-
 <NovoprontuarioWindow>:
-    MDBoxLayout:
-        MDBottomAppBar:
-            MDToolbar:
-                type: 'bottom'
-                icon: 'arrow-right'
-                left_action_items: [["home", lambda x: root.home()], ["cloud", lambda x: root.host()]]
-                right_action_items:[["folder", lambda x: root.historico()], ["account", lambda x: root.account()]]
-                on_action_button: root.verifica()
-                icon_color: "#13c465"
-                mode: 'center'
+    MDBottomNavigation:
+        panel_color: "#009688"
+        text_color_normal: 0, 0, 0, 1
+        text_color_active: 0, 0, 0, 1
+        
+        MDBottomNavigationItem:
+            name: 'home'
+            text: 'Home'   
+            icon: 'home'
+            on_tab_press: root.manager.current = 'main_screen'  
+
+   
+        MDBottomNavigationItem:
+            name: 'historico'
+            text: 'Histórico'
+            icon:'folder'
+            on_tab_press: root.manager.current = 'historico_screen'  
+
+        MDBottomNavigationItem:
+            name: 'setting'
+            text: 'PACIENTES'
+            icon: 'account-box-multiple'
 
     FloatLayout:
-        MDToolbar:
-            title: "Dados de Coleta"
+        MDTopAppBar:
+            title: "Pacientes"
             pos_hint: {"top": 1}
             elevation: 10
-
-        MDTextFieldRound:
-            id: nome_paciente
-            hint_text: "Nome do Paciente"
-            icon_right: "note"
-            size_hint_x: 0.75
-            font_size: 18
-            pos_hint: {'center_x': 0.5, 'center_y':0.78}
-            on_text:
-                root.set_paciente(self.text)
-
-        Label:
-            id:nome_label
-            text: ""
-            font_size: 12
-            specific_text_color: 1,0,0,1
-            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-
-        MDFillRoundFlatIconButton:
-            text:"Selecionar data"
-            icon: 'calendar'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-            size_hint: 0.7, 0.1
-            on_release: 
-                root.show_date_picker()
-        
-        Label:
-            id: date_label
-            text:""
-            pos_hint: {'center_x': 0.5, 'center_y': 0.35}
-        
-        Label:
-            id: time_label
-            text:""
-            pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-
-
-        MDFillRoundFlatIconButton:
-            text: "Selecionar horario"
-            icon: 'timer'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-            size_hint: 0.7, 0.1
-            on_release: root.show_time_picker()
+            right_action_items: [["wifi", lambda x: app.check_internet(x), "Checar conexão"]]
+            
+    MDBoxLayout:
+        size_hint: (1.0, 0.74)
+        pos_hint: {"center_y":0.5}
+        MDScrollView:
+            MDList:
+                id: scroll_paciente
 

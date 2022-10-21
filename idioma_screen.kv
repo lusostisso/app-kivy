@@ -1,0 +1,33 @@
+<SelecioneIdioma>:
+    MDTopAppBar:
+        title: "Idiomas"
+        orientation: "vertical"
+        pos_hint: {"top":1}
+        left_action_items: [["arrow-left", lambda x: root.voltar(x), "Voltar"]]
+    
+    BoxLayout:
+        size_hint: (1.0, 0.74)
+        pos_hint: {"center_y":0.5}
+        MDList:
+            TwoLineListItem:
+                text: 'English'
+                secondary_text:"Inglês"
+                on_release: root.trocarIdioma("en-US")
+            TwoLineListItem:
+                text: 'Português'
+                secondary_text:'Português'
+                on_release: root.trocarIdioma('pt-BR')
+            TwoLineListItem:
+                text: 'Español'
+                secondary_text: 'Espanhol'
+                on_release: root.trocarIdioma('es-AR')
+            TwoLineListItem:
+                text: 'Français'
+                secondary_text: 'Francês'
+                on_release: root.trocarIdioma('fr-FR')
+            TwoLineListItem:
+                text: 'Deutsch'
+                secondary_text: 'Alemão'
+                on_release: root.trocarIdioma('de-DE')
+
+                

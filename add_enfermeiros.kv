@@ -1,0 +1,30 @@
+<Adicionando_Enfermeiros>:
+    MDTextField:
+        hint_text: "Nome do Funcionário"
+        mode: "round"
+        required: True
+        width: 200
+        pos_hint: {"center_x": 0.5, "center_y":0.8}
+        helper_text: "Nome Completo"
+
+    MDTextField:
+        hint_text: "Email de cadastro"
+        required: True
+        width: 200
+        pos_hint: {"center_x": 0.5, "center_y":0.7}
+        mode: "round"
+
+    MDTextField:
+        hint_text: "Senha de cadastro"
+        required: True
+        width: 200
+        pos_hint: {"center_x": 0.5, "center_y":0.6}
+        mode: "round"
+        max_text_length: 20
+
+    MDScreen:
+        MDDropDownItem:
+            id: drop_item
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            text: 'Selecione'
+            on_release: app.menu.open()

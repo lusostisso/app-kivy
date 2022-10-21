@@ -1,86 +1,63 @@
 #:include my.kv
 <LoginWindow>:
-    #Image:
-     #   source: 'logo.png'   
-      #  allow_stretch: True
-       # keep_ratio: False
-            #size: self.width + 20, self.height + 20
-        #height: self.texture_size[1]
-        #pos_hint:{'center_x':0.45, 'center_y': 0.55}
-    MDCard: 
-        size_hint: None, None
-        size: 300, 400
-        pos_hint: {"center_x": 0.5, "center_y":0.5}
-        #elevation: 10
-        #       esq, cima, dir, baixo
-        padding: 20 , 10,  20,16
-        orientation: 'vertical'
-
-        #MDLabel:
-        #    id: nome_label
-        #    text: "LUD APP"
-        #    font_size: 40
-        #    halign: 'center'
-        #    size_hint_y : None
-        #    height: self.texture_size[1]
+    MDFloatLayout:
         Image:
             source: 'logo.png'   
             allow_stretch: True
-            #keep_ratio: True
-                #size: self.width + 20, self.height + 20
-            height: self.texture_size[1]
-            pos_hint:{'center_x':0.5, 'center_y': 0.55}
+            size_hint: 0.3,0.3
+            pos_hint:{'center_x':0.5, 'center_y': 0.85}
+
         MDLabel:
             id: subtitulo_label
-            text: "Prontuário Rápidos e Ágeis"
+            text: "VOICE MEDICAL RECORD"
             font_size: 15
+            pos_hint:{'center_x':0.5, 'center_y': 0.7}
             halign: 'center'
-            size_hint_y: 1
-            padding_y: 10
+            
                             
-        MDTextFieldRound:
+        MDTextField:
             id: user
-            hint_text: "Usuário"
+            hint_text: "Número de matrícula"
             icon_right: "account"
-            width: 200
+            size_hint_x: 0.9
             font_size: 18
-            pos_hint: {"center_x": 0.5, "center_y": 0.7}
+            pos_hint: {"center_x": 0.5, "center_y": 0.55}
             on_text:
                 root.set_enfermeiro(self.text)
 
-        MDTextFieldRound:
+        MDTextField:
             id: password
             hint_text: "Senha"
             icon_right: "eye-off"
-            width: 200
+            size_hint_x: 0.9
             font_size: 18
-            pos_hint: {"center_x": 0.5, "center_y":0.6}
+            pos_hint: {"center_x": 0.5, "center_y":0.45}
             password:True
             on_text:
                 root.on_senha(self.text)
+
+
         Label:
             id: campo_vazio
             font_size: 12
             text:""
-            pos_hint: {'center_x': 0.5, 'center_y': 0.56}
+            pos_hint: {'center_x': 0.5, "center_y":0.35}
 
-        MDCard:
-            spacing: 10
-            orientation: 'vertical'
-            MDFillRoundFlatButton:
-                text: "LOGIN"
-                font_size: 12
-                width: 100
-                md_bg_color: "#13c465"
-                pos_hint: {"center_x": 0.5}
-                on_release: root.verifica()
-                    
+        MDFillRoundFlatButton:
+            text: "LOGIN"
+            font_size: 12
+            width: 100
+            md_bg_color: "#13c465"
+            pos_hint: {"center_x": 0.5, 'center_y':0.2}
+            on_release: root.verifica()
+                
 
-            MDFillRoundFlatButton:
-                text: "LIMPAR"
-                font_size: 12
-                md_bg_color: "#b0bec5"
-                pos_hint: {"center_x": 0.5, "center_y":0.1}
-                on_press:
-                    user.text = ""
-                    password.text = ""
+        MDFillRoundFlatButton:
+            text: "LIMPAR"
+            font_size: 12
+            md_bg_color: "#b0bec5"
+            pos_hint: {"center_x": 0.5, 'center_y':0.1}
+            on_press:
+                user.text = ""
+                password.text = ""
+

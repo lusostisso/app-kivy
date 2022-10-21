@@ -1,64 +1,101 @@
-
-#:include login.kv
 #:include novo.kv
+#:include gravacao.kv
 #:include historico.kv
 #:include host.kv
-<ScreenManager>:
-    id: screen_manager
-    LoginWindow:
-        name:"login_screen"
-        id: login_screen
-    MainWindow:
-        name:"main_screen"
-        id: main_screen
-    NovoprontuarioWindow:
-        name:"novo_prontuario"
-        id: novo_prontuario
-    GravacaoWindow:
-        name:"gravacao"
-        id: gravacao
-    Historico:
-        name:"historico"
-        id: historico
-    Host:
-        name:"host"
-        id:host
-
+#:include cadastro.kv
+#:include add_enfermeiros.kv
+#:include ExibirProntuario.kv
+#:include idioma_screen.kv
 
 <MainWindow>:
+    MDBottomNavigation:
+        panel_color: "#009688"
+        text_color_normal: 0, 0, 0, 1
+        text_color_active: 0, 0, 0, 1
+        
+        MDBottomNavigationItem:
+            name: 'home'
+            text: 'Home'  
+            icon:'home' 
+            on_tab_press: root.manager.current = 'main_screen'  
+
+        MDBottomNavigationItem:
+            name: 'historico'
+            text: 'Histórico'
+            icon:'folder'
+            on_tab_press:
+                root.manager.current = 'historico_screen'  
+
+        MDBottomNavigationItem:
+            name: 'setting'
+            text: 'PACIENTES'
+            icon: 'account-box-multiple'
+            on_tab_press: 
+                root.manager.current = 'novo_screen'
+
+
     MDBoxLayout:
-        MDBottomAppBar:
-            MDToolbar:
-                type: 'bottom'
-                icon: 'plus'
-                left_action_items: [["home", lambda x: x], ["cloud", lambda x: root.host()]]
-                right_action_items:[["folder", lambda x: root.historico()], ["account", lambda x: root.account()]]
-                on_action_button: root.novo()
-                mode: 'center'
-
-    MDToolbar:
-        title: "Bem vindo"
-        pos_hint: {"top": 1}
-        elevation: 10
-
-    MDRoundFlatButton:
-        text: "Novo Prontuário"
-        font_size: 12
-        pos_hint: {"center_x": 0.5, "center_y": 0.7}
-        on_press: 
-            root.manager.current = 'novo_prontuario'
+        id: box
+        adaptive_size: True
+        spacing: "56dp"
+        pos_hint: {"center_x": .5, "center_y": .5}
+    MDLabel:
+        text: "CAMPOS DISPONÍVEIS: Pressão Arterial, Frequência Cardíaca, Saturação, Frequência Respiratória, Temperatura, Diurese, Glicose, Evacuação, Drenagens, Escala de Dor"
+        font_size: 15
+        halign: 'center'
+        size_hint_y: 1
+        padding_y: 5
+            
+    MDFloatingActionButton:
+        icon: "plus"
+        md_bg_color: app.theme_cls.primary_color
+        type: 'standard'
+        pos_hint: {"center_x": 0.5, "center_y":0.16}
+        on_release: root.manager.current = 'gravacao_screen'
     
-    MDRoundFlatButton:
-        text: "Histórico"
-        font_size: 12
-        pos_hint: {"center_x": 0.5, "center_y":0.5}
+    MDTopAppBar:
+        title: "Bem vindo"
+        orientation: "vertical"
+        pos_hint: {"top":1}
+        #elevation: 10
+        right_action_items: [["wifi", lambda x: app.check_internet(x), "Checar conexão"], ["cog", lambda x:root.configuracoes(x), "Configurações"]]
+    
 
+                
+<CustomSnackbar>:
+    MDIconButton:
+        pos_hint: {'center_y': .5}
+        icon: root.icon
+        opposite_colors: True
+        
+    MDLabel:
+        id: text_bar
+        size_hint_y: None
+        height: self.texture_size[1]
+        text: root.text
+        font_size: root.font_size
+        theme_text_color: 'Custom'
+        text_color: 'ffffff'
+        shorten_from: 'right'
+        pos_hint: {'center_y': .5}
 
 
 
        
 
+<MD3Card>
+    padding: 4
+    size_hint: None, None
+    size: "200dp", "100dp"
 
+    MDRelativeLayout:
+        MDLabel:
+            id: label
+            text: root.text
+            adaptive_size: True
+            color: "grey"
+            pos: "12dp", "12dp"
+            bold: True
 
 
 

@@ -1,0 +1,39 @@
+<Cadastro>:     
+    ScrollView:
+        size_hint_y: 0.87
+        MDList:
+            OneLineAvatarIconListItem:
+                text: "Perfil"
+                IconRightWidgetWithoutTouch:
+                    icon: "arrow-right"
+            TwoLineAvatarIconListItem:
+                text: "Cadastro de Enfermeiros"
+                on_release: root.manager.current = 'novos_enfermeiros_screen'  
+                secondary_text: "Acesso restrito"
+                IconRightWidgetWithoutTouch:
+                    icon: "arrow-right"
+            OneLineAvatarIconListItem:
+                text: "Idioma"
+                on_release: root.manager.current = 'selecione_idioma_screen'  
+                IconRightWidgetWithoutTouch:
+                    icon: "arrow-right"
+            OneLineAvatarIconListItem:
+                text: "Como Utilizar?"
+                IconRightWidgetWithoutTouch:
+                    icon: "arrow-right"
+    MDTopAppBar:
+        title: "Configurações"
+        pos_hint: {"top": 1}
+        left_action_items: [["arrow-left", lambda x: root.home(x), "Voltar"]]
+        elevation: 10
+        
+ 
+    MDFillRoundFlatButton:
+        text: "Sair"
+        font_size: 17
+        width: 100
+        md_bg_color: "#ffffff"
+        text_color:"#000000"
+        pos_hint: {"center_x": 0.5, "center_y": 0.1}
+        on_release: root.manager.current = 'login_screen'  
+

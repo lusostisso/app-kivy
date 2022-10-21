@@ -1,21 +1,23 @@
-<Historico>:
+
+<ExibirProntuario>:
+    text_input: text_input
+
     MDBottomNavigation:
         panel_color: "#009688"
         text_color_normal: 0, 0, 0, 1
         text_color_active: 0, 0, 0, 1
-        
         MDBottomNavigationItem:
             name: 'home'
             text: 'Home'   
             icon:'home'
             on_tab_press: 
                 root.manager.current = 'main_screen' 
-
         MDBottomNavigationItem:
             name: 'historico'
             text: 'Histórico'
             icon: 'folder'
-
+            on_tab_press: 
+                root.manager.current = 'historico_screen' 
         MDBottomNavigationItem:
             name: 'setting'
             text: 'PACIENTES'
@@ -23,16 +25,19 @@
             on_tab_press: root.manager.current = 'novo_screen'
 
     MDTopAppBar:
-        title: "Acesse os Prontuários"
-        pos_hint: {"top": 1}
-        elevation: 10
+        title: "Exibir"
+        orientation: "vertical"
+        pos_hint: {"top":1}
+        left_action_items: [["arrow-left", lambda x: root.voltar(x), "Voltar"]]
         right_action_items: [["wifi", lambda x: app.check_internet(x), "Checar conexão"]]
     
-    MDBoxLayout:
-        size_hint: (1.0, 0.74)
-        pos_hint: {"center_y":0.5}
-        MDScrollView:
-            MDList:
-                id: scroll
 
-                
+    MDTextField: 
+        id: text_input
+        helper_text: "visualização do arquivo"
+        helper_text_mode: "persistent"
+        multiline: True
+        size_hint_x:0.8
+        size_hint_y:0.62
+        text_color_normal:"f9f9fd"
+        pos_hint: {"center_x": .5, "center_y":0.5}
