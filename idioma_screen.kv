@@ -4,7 +4,7 @@
         orientation: "vertical"
         pos_hint: {"top":1}
         left_action_items: [["arrow-left", lambda x: root.voltar(x), "Voltar"]]
-    
+
     BoxLayout:
         size_hint: (1.0, 0.74)
         pos_hint: {"center_y":0.5}
@@ -29,5 +29,3 @@
                 text: 'Deutsch'
                 secondary_text: 'Alemão'
                 on_release: root.trocarIdioma('de-DE')
-
-                

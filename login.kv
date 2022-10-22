@@ -2,7 +2,7 @@
 <LoginWindow>:
     MDFloatLayout:
         Image:
-            source: 'logo.png'   
+            source: 'logo.png'
             allow_stretch: True
             size_hint: 0.3,0.3
             pos_hint:{'center_x':0.5, 'center_y': 0.85}
@@ -13,8 +13,8 @@
             font_size: 15
             pos_hint:{'center_x':0.5, 'center_y': 0.7}
             halign: 'center'
-            
-                            
+
+
         MDTextField:
             id: user
             hint_text: "Número de matrícula"
@@ -50,7 +50,7 @@
             md_bg_color: "#13c465"
             pos_hint: {"center_x": 0.5, 'center_y':0.2}
             on_release: root.verifica()
-                
+
 
         MDFillRoundFlatButton:
             text: "LIMPAR"
@@ -60,4 +60,3 @@
             on_press:
                 user.text = ""
                 password.text = ""
-

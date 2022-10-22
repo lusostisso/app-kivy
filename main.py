@@ -1,4 +1,3 @@
-
 from kivy.properties import StringProperty
 from kivy.app import App
 from kivymd.app import MDApp
@@ -10,9 +9,9 @@ from kivy.uix.screenmanager import Screen, NoTransition, CardTransition
 from kivymd.uix.pickers import MDDatePicker, MDTimePicker
 from kivy.uix.textinput import TextInput
 from kivy.lang import Builder
-from kivy.base import runTouchApp 
-from kivy.uix.button import Button 
-from kivy.core.window import Window 
+from kivy.base import runTouchApp
+from kivy.uix.button import Button
+from kivy.core.window import Window
 from kivy.uix.relativelayout import RelativeLayout
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.properties import ObjectProperty
@@ -47,14 +46,14 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from kivy.metrics import dp
 from pathlib import Path as caminho
-import requests.exceptions 
+import requests.exceptions
 
 
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.properties import StringProperty, NumericProperty
 
-import datetime 
+import datetime
 
 from kivymd.app import MDApp
 from kivymd.uix.button import MDFlatButton
@@ -84,36 +83,36 @@ class MainWindow(Screen):
     def configuracoes(self, instance_action_top_appbar_button) :
         self.parent.current = 'cadastro_screen'
 
-class LoginWindow(Screen): 
+class LoginWindow(Screen):
     def set_enfermeiro (self, value):
         global login_enfermeiro
         login_enfermeiro = value
-           
+
     def on_senha (self, value):
         global senha
         senha = value
-    
+
     def verifica (self):
         if 'login_enfermeiro' not in globals() or login_enfermeiro=="":
             self.ids.campo_vazio.text = "insira seu usuário"
         elif 'senha' not in globals() or senha=="":
-            self.ids.campo_vazio.text = "insira sua senha" 
+            self.ids.campo_vazio.text = "insira sua senha"
         else:
             comportamento = self.autenticacao(login_enfermeiro, senha)
             if comportamento == None:
-                self.ids.campo_vazio.text = "Usuario não encontrado" 
+                self.ids.campo_vazio.text = "Usuario não encontrado"
             elif comportamento == 'si':
-                self.ids.campo_vazio.text = "Senha Incorreta" 
+                self.ids.campo_vazio.text = "Senha Incorreta"
             elif comportamento == 'lf':
                 self.parent.current = 'main_screen'
                 self.ids.campo_vazio.text = ""
                 self.ids.password.text =""
             else:
-                self.ids.campo_vazio.text = "Sem Conexão" 
-            
+                self.ids.campo_vazio.text = "Sem Conexão"
+
     def autenticacao (self, login, senha):
         try:
-            for enfermeiroDado in tabelaDeEnfermeiros.each():    
+            for enfermeiroDado in tabelaDeEnfermeiros.each():
                 if(enfermeiroDado.key() == login):
                     if(enfermeiroDado.val()['senha'] == senha):
                         return 'lf'
@@ -122,7 +121,7 @@ class LoginWindow(Screen):
         except:
             return 0
 
-            
+
 class NovoprontuarioWindow(Screen):
     def on_pre_enter(self):
         log = firebase.database().child("pacientes").shallow().get().val()
@@ -135,18 +134,18 @@ class NovoprontuarioWindow(Screen):
     def on_pre_leave(self):
         self.ids.scroll_paciente.clear_widgets()
 
-     
+
 class GravacaoWindow(Screen):
     def ativa_spinner(self):
         self.ids.spinner.active = True
     def desativa_spinner(self):
         self.ids.spinner.active = False
-        
+
 class Historico (Screen):
     def on_pre_enter(self):
         caminhoParaListarOsPacientes= firebase.database().child("dados").child(login_enfermeiro).shallow().get()
         try:
-            for dado in dados.each():    
+            for dado in dados.each():
                 if(dado.key() == login_enfermeiro):
                     listaDePacientes = caminhoParaListarOsPacientes.val()
             for prontuario in listaDePacientes:
@@ -154,20 +153,20 @@ class Historico (Screen):
                 self.ids.scroll.add_widget(
                     ListItem(text=f"{separado[0]}", secondary_text=f"{separado[1]}", id=prontuario)
                 )
-        except: 
+        except:
             pass
     def on_pre_leave(self):
             self.ids.scroll.clear_widgets()
-            
+
     def recebeProntuarioDoClique (text_item):
-        global texto_item 
+        global texto_item
         texto_item = text_item
         sm.current='exibir_prontuarios'
 
 
 class ListItem(TwoLineListItem):
     on_release=lambda x: Historico.recebeProntuarioDoClique(x.id)
-    
+
 
 class ExibirProntuario (Screen):
     def on_pre_enter(self):
@@ -179,17 +178,17 @@ class ExibirProntuario (Screen):
             caminho = firebase.database().child("pacientes").child(texto_item).get().val()
             for chave, valor in caminho.items():
                 self.ids.text_input.text = self.ids.text_input.text + '\n' + (chave + ' : ' + str(valor))
-    
+
     def on_pre_leave(self):
         self.ids.text_input.text = ""
-        
+
     def voltar(self, instance_action_top_appbar_button):
         self.parent.current = 'historico_screen'
 
 class Cadastro (Screen):
     def home (self, instance_action_top_appbar_button):
         self.parent.current = 'main_screen'
-        
+
 class Adicionando_Enfermeiros (Screen):
     pass
 
@@ -206,21 +205,21 @@ class SelecioneIdioma(Screen):
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
-    
-    
+
+
 class CustomSnackbar(BaseSnackbar):
     text = StringProperty(None)
     icon = StringProperty(None)
     font_size = NumericProperty("15sp")
     snackbar_animation_dir = "Right"
-    
+
 screen = Builder.load_file("login.kv")
 
 class LudApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Teal"
-        
+
         principal = MainWindow(name='main_screen')
         login = LoginWindow(name='login_screen')
         gravacao = GravacaoWindow(name= 'gravacao_screen')
@@ -230,7 +229,7 @@ class LudApp(MDApp):
         adicionando_enfermeiros = Adicionando_Enfermeiros(name ='add_enfermeiros')
         exibir_prontuario = ExibirProntuario(name='exibir_prontuarios')
         selecione_idioma = SelecioneIdioma(name='selecione_idioma_screen')
-        
+
         sm.add_widget(login)
         sm.add_widget(principal)
         sm.add_widget(gravacao)
@@ -264,8 +263,8 @@ class LudApp(MDApp):
             LudApp.show(self, "Dispositivo conectado")
         except:
             LudApp.show(self, "Não há conexão com a internet")
-    
- 
+
+
     def start_recording (self):
         self.CHUNK = 1024
         self.FORMAT = pyaudio.paInt16
@@ -274,7 +273,7 @@ class LudApp(MDApp):
         self._running = True
         self._frames = []
         threading._start_new_thread(self.__recording, ())
-        
+
     def __recording(self):
         self._running = True
         self._frames = []
@@ -305,7 +304,7 @@ class LudApp(MDApp):
         wf.setframerate(self.RATE)
         wf.writeframes(b''.join(self._frames))
         wf.close()
-    
+
     def audio_prep (self, filename):
         audio = AudioSegment.from_file(filename, 'wav')
 
@@ -318,11 +317,11 @@ class LudApp(MDApp):
             parte_name='parte{0}.wav'.format(i)
             partes_audio.append(parte_name)
             parte.export(parte_name, format='wav')
-            
+
 
         def transcreve_audio(nome_audio):
             reconhecimento=sr.Recognizer( )
-            
+
             with sr.AudioFile(nome_audio) as source:
                 audio = reconhecimento.record(source)
             try:
@@ -339,18 +338,18 @@ class LudApp(MDApp):
         texto = ''
         for parte in partes_audio:
             texto = texto + ' ' + transcreve_audio(parte)
-    
+
         def tratamento_frase (palavraChave):
             indice=(texto.index(palavraChave) + len(palavraChave) - 1)
             valor_indice = ([float(s) for s in re.findall(r'-?\d+\.?\d*', texto[indice : len(texto)])])
             return valor_indice
-                    
+
         def substituicao (palavraChave, listaDeSinonimo):
             for sinonimo in listaDeSinonimo:
                 nonlocal texto
                 texto = texto.replace(sinonimo, palavraChave)
             return texto.lower()
-            
+
         def pressaoArterial (palavraChave, listaDeSinonimo):
             if palavraChave in substituicao(palavraChave, listaDeSinonimo):
                 valor_indice = tratamento_frase(palavraChave)
@@ -358,9 +357,9 @@ class LudApp(MDApp):
                     return (str(valor_indice[0]) + ' X ' + str(valor_indice[1]))
                 except:
                     return None
-            else: 
+            else:
                 return None
-            
+
         def processarTexto(palavraChave, listaDeSinonimo):
             if palavraChave in substituicao(palavraChave, listaDeSinonimo):
                 valor_indice = tratamento_frase(palavraChave)
@@ -370,33 +369,33 @@ class LudApp(MDApp):
                     return None #falou palavra chave mas não disse valor
             else:
                 return None
-            
+
         #def observacoes (palavraChave, listaDeSinonimo):
         #    substituicao(palavraChave, listaDeSinonimo)
 
-            
+
         horario = (datetime.datetime.now())
         dia_formatado = str (horario.day) +' '+ str(horario.month) + ' ' + str(horario.year)
         horario_formatado = str(horario.strftime("%X"))
-                
+
         def selecionaPartirDoIdNomeEnfermeiro (login):
-            for enfermeiroDado in tabelaDeEnfermeiros.each():    
+            for enfermeiroDado in tabelaDeEnfermeiros.each():
                 if(enfermeiroDado.key() == login):
                     nomeEnfermeiro = enfermeiroDado.val()['nome']
                     return nomeEnfermeiro
-                
+
         def get_nome(id_nome):
             try:
-                for paciente in firebase.database().child('pacientes').get().each(): 
-                    print(paciente.key())   
+                for paciente in firebase.database().child('pacientes').get().each():
+                    print(paciente.key())
                     if(paciente.key() == str(int(float(id_nome)))):
                         resul = (paciente.val()['nome'])
                         return resul
                 return 'paciente não encontrado'
             except:
                 return 'paciente não encontrado'
-             
-            
+
+
         sinonimosDePressao = ['pressão ', 'pa ', 'p.a. ']
         sinonimoDeEscalaDeDor = ['escala.de.dor ', 'escala de sua dor ', 'o quanto dói ']
         sinonimoDeFrequenciaCardiaca = ['batimento ','batimento cardíaco ', 'coração ', 'batida do coração ', 'pulsação ' ]
@@ -409,7 +408,7 @@ class LudApp(MDApp):
         sinonimoDeDrenagem = ['dreno ']
         sinonimoDePaciente = ['nome ', 'número ', 'id ']
         sinonimoDeObservações = ['observação ', 'notas ', 'anotações ']
-        
+
         data = {
             'Paciente': get_nome(processarTexto('paciente ', sinonimoDePaciente)),
             'Data': dia_formatado,
@@ -430,4 +429,3 @@ class LudApp(MDApp):
 
 if __name__ == "__main__":
     LudApp().run()
-
