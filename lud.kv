@@ -12,62 +12,60 @@
         panel_color: "#009688"
         text_color_normal: 0, 0, 0, 1
         text_color_active: 0, 0, 0, 1
-        
+
         MDBottomNavigationItem:
             name: 'home'
-            text: 'Home'  
-            icon:'home' 
-            on_tab_press: root.manager.current = 'main_screen'  
+            text: 'Home'
+            icon:'home'
+            on_tab_press: root.manager.current = 'main_screen'
 
         MDBottomNavigationItem:
             name: 'historico'
             text: 'Histórico'
             icon:'folder'
             on_tab_press:
-                root.manager.current = 'historico_screen'  
+                root.manager.current = 'historico_screen'
 
         MDBottomNavigationItem:
             name: 'setting'
             text: 'PACIENTES'
             icon: 'account-box-multiple'
-            on_tab_press: 
+            on_tab_press:
                 root.manager.current = 'novo_screen'
-
 
     MDBoxLayout:
         id: box
         adaptive_size: True
         spacing: "56dp"
         pos_hint: {"center_x": .5, "center_y": .5}
+
     MDLabel:
         text: "CAMPOS DISPONÍVEIS: Pressão Arterial, Frequência Cardíaca, Saturação, Frequência Respiratória, Temperatura, Diurese, Glicose, Evacuação, Drenagens, Escala de Dor"
         font_size: 15
         halign: 'center'
         size_hint_y: 1
         padding_y: 5
-            
+
     MDFloatingActionButton:
         icon: "plus"
         md_bg_color: app.theme_cls.primary_color
         type: 'standard'
         pos_hint: {"center_x": 0.5, "center_y":0.16}
         on_release: root.manager.current = 'gravacao_screen'
-    
+
     MDTopAppBar:
         title: "Bem vindo"
         orientation: "vertical"
         pos_hint: {"top":1}
         #elevation: 10
         right_action_items: [["wifi", lambda x: app.check_internet(x), "Checar conexão"], ["cog", lambda x:root.configuracoes(x), "Configurações"]]
-    
 
-                
 <CustomSnackbar>:
     MDIconButton:
         pos_hint: {'center_y': .5}
         icon: root.icon
         opposite_colors: True
-        
+
     MDLabel:
         id: text_bar
         size_hint_y: None
@@ -78,10 +76,6 @@
         text_color: 'ffffff'
         shorten_from: 'right'
         pos_hint: {'center_y': .5}
-
-
-
-       
 
 <MD3Card>
     padding: 4
@@ -96,12 +90,3 @@
             color: "grey"
             pos: "12dp", "12dp"
             bold: True
-
-
-
-
-
-        
-
-
-    
