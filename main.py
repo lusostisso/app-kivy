@@ -38,7 +38,8 @@ import os
 import time
 import threading
 import re
-
+import kivy
+from kivy.utils import platform
 
 from pydub import AudioSegment
 from pydub.utils import make_chunks
@@ -105,6 +106,8 @@ class LoginWindow(Screen):
                 self.ids.campo_vazio.text = "Senha Incorreta"
             elif comportamento == 'lf':
                 self.parent.current = 'main_screen'
+                global tipo_dispositivo
+                tipo_dispositivo=kivy.platform
                 self.ids.campo_vazio.text = ""
                 self.ids.password.text =""
             else:
@@ -246,15 +249,11 @@ class LudApp(MDApp):
         snackbar = CustomSnackbar(
             text= texto_re,
             icon="information",
-            snackbar_x="10dp",
+            snackbar_x="5dp",
             snackbar_y="370dp",
-        )
-        snackbar_animation_dir = "Right"
-        snackbar.size_hint_x = (
-            Window.width - (snackbar.snackbar_x * 2)
-        ) / Window.width
-
-        snackbar.open()
+            snackbar_animation_dir = "Right",
+        ).open()
+        
     def check_internet (self, instance_action_top_appbar_button):
         url = 'https://www.google.com'
         timeout = 5
@@ -266,13 +265,21 @@ class LudApp(MDApp):
 
 
     def start_recording (self):
-        self.CHUNK = 1024
-        self.FORMAT = pyaudio.paInt16
-        self.CHANNELS = 1
-        self.RATE = 16000
-        self._running = True
-        self._frames = []
-        threading._start_new_thread(self.__recording, ())
+        if tipo_dispositivo=="win":
+            self.CHUNK = 1024
+            self.FORMAT = pyaudio.paInt16
+            self.CHANNELS = 1
+            self.RATE = 16000
+            self._running = True
+            self._frames = []
+            threading._start_new_thread(self.__recording, ())
+        if tipo_dispositivo=="android":
+            audio.file_path = './audio.wav'
+            audio._start()
+            audio.state = 'recording'
+        else:
+            pass
+        
 
     def __recording(self):
         self._running = True
@@ -293,7 +300,12 @@ class LudApp(MDApp):
         p.terminate()
 
     def stop(self):
-        self._running = False
+        if(tipo_dispositivo=='win'):
+            self._running = False
+        if(tipo_dispositivo=='android'):
+            audio._stop()
+        else:
+            pass
 
     #Save file to filename location as a wavefront file.
     def save(self, filename):
@@ -387,7 +399,6 @@ class LudApp(MDApp):
         def get_nome(id_nome):
             try:
                 for paciente in firebase.database().child('pacientes').get().each():
-                    print(paciente.key())
                     if(paciente.key() == str(int(float(id_nome)))):
                         resul = (paciente.val()['nome'])
                         return resul
