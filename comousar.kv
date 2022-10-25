@@ -1,0 +1,44 @@
+<ComoUsar>:
+    MDTopAppBar:
+        title: "Como usar?"
+        orientation: "vertical"
+        pos_hint: {"top":1}
+        left_action_items: [["arrow-left", lambda x: root.voltar(x), "Voltar"]]
+    
+
+    MDLabel:
+        text: "Aplicativo para confecção de prontuários eletrônicos"
+        font_size: 15
+        pos_hint: {"center_x": 0.5, "center_y":0.8}
+        padding_y: 5
+        padding_x: 5
+    MDLabel:
+        text: "Fale o campo e depois o número a ser registrado"
+        font_size: 13
+        pos_hint: {"center_x": 0.5, "center_y":0.7}
+        padding_y: 5
+        padding_x: 5
+    MDLabel:
+        text: "A identificação do paciente é dada pela fala de seu ID, consulte a aba pacientes!"
+        font_size: 13
+        pos_hint: {"center_x": 0.5, "center_y":0.6}
+        padding_y: 5
+        padding_x: 5
+    MDLabel:
+        text: "Caso houver erro, basta corrigir falando novamente o termo e o dado"
+        font_size: 13
+        pos_hint: {"center_x": 0.5, "center_y":0.5}
+        padding_y: 5
+        padding_x: 5
+    MDLabel:
+        text: "O prontuário gerado ficará disponível na aba histórico"
+        font_size: 13
+        pos_hint: {"center_x": 0.5, "center_y":0.4}
+        padding_y: 5
+        padding_x: 5
+    MDLabel:
+        text: "Sistema para conferir dado absorvido em desenvolvimento"
+        font_size: 13
+        pos_hint: {"center_x": 0.5, "center_y":0.3}
+        padding_y: 5
+        padding_x: 5

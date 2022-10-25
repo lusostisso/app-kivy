@@ -6,6 +6,7 @@
 #:include add_enfermeiros.kv
 #:include ExibirProntuario.kv
 #:include idioma_screen.kv
+#:include comousar.kv
 
 <MainWindow>:
     MDBottomNavigation:
@@ -57,7 +58,6 @@
         title: "Bem vindo"
         orientation: "vertical"
         pos_hint: {"top":1}
-        #elevation: 10
         right_action_items: [["wifi", lambda x: app.check_internet(x), "Checar conexão"], ["cog", lambda x:root.configuracoes(x), "Configurações"]]
 
 <CustomSnackbar>:

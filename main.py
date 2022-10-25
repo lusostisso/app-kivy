@@ -204,6 +204,9 @@ class SelecioneIdioma(Screen):
         idioma = idioma_sigla
 
 
+class ComoUsar(Screen):
+    def voltar (self, instance_action_top_appbar_button):
+        self.parent.current = 'cadastro_screen'
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
@@ -232,6 +235,8 @@ class LudApp(MDApp):
         adicionando_enfermeiros = Adicionando_Enfermeiros(name ='add_enfermeiros')
         exibir_prontuario = ExibirProntuario(name='exibir_prontuarios')
         selecione_idioma = SelecioneIdioma(name='selecione_idioma_screen')
+        como_usar= ComoUsar(name='como_usar_screen')
+        
 
         sm.add_widget(login)
         sm.add_widget(principal)
@@ -242,6 +247,7 @@ class LudApp(MDApp):
         sm.add_widget(adicionando_enfermeiros)
         sm.add_widget(exibir_prontuario)
         sm.add_widget(selecione_idioma)
+        sm.add_widget(como_usar)
         return sm
 
 
